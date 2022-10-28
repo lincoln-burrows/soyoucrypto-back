@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
 
-                .allowedOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://master--fascinating-faun-20ead4.netlify.app")
+                .allowedOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://master--fascinating-faun-20ead4.netlify.app", "https://635b93bf10e85609b2e5f906--courageous-gelato-b43521.netlify.app")
                 .allowedMethods("GET","POST","PUT","DELETE","PATCH")
                 .allowCredentials(true)
                 .maxAge(3000);
