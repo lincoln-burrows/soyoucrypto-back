@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class MomentumData6M {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private int id;

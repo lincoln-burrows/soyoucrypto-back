@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -34,6 +35,9 @@ public class StableOutputIndex {
     @Column
     private double mdd;
 
+    @Column(nullable = true)
+    private LocalDateTime uploadTime;
+
 
     public StableOutputIndex(String indexType, double cumReturn, double dailyAvg, double dailySharp, double mdd) {
         this.indexType = indexType;
@@ -42,4 +46,13 @@ public class StableOutputIndex {
         this.dailySharp = dailySharp;
         this.mdd = mdd;
     }
+
+    public StableOutputIndex(String indexType, double cumReturn, double dailyAvg, double dailySharp, double mdd, LocalDateTime uploadTime) {
+        this.indexType = indexType;
+        this.cumReturn = cumReturn;
+        this.dailyAvg = dailyAvg;
+        this.dailySharp = dailySharp;
+        this.mdd = mdd;
+        this.uploadTime = uploadTime;
     }
+}

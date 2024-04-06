@@ -49,6 +49,10 @@ dependencies {
     //설정파일 암호화
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 
+    // db
+    implementation 'org.hibernate:hibernate-core:5.3.6.Final'
+    implementation 'mysql:mysql-connector-java'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.5.2'
 }
 //tasks.named('test') {
 //    useJUnitPlatform()

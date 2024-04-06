@@ -3,6 +3,7 @@ package com.project.soyoucryptoback.login.repository;
 
 
 
+
 import com.project.soyoucryptoback.login.model.StableOutputIndex;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

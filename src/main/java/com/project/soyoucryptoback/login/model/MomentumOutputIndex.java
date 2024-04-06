@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -34,6 +35,11 @@ public class MomentumOutputIndex {
     @Column
     private double mdd;
 
+    @Column(nullable = true)
+    private LocalDateTime uploadTime;
+
+    @Column(nullable = true)
+    private double anotherItem;
 
     public MomentumOutputIndex(String indexType, double cumReturn, double dailyAvg, double dailySharp, double mdd) {
         this.indexType = indexType;
@@ -42,4 +48,22 @@ public class MomentumOutputIndex {
         this.dailySharp = dailySharp;
         this.mdd = mdd;
     }
+
+    public MomentumOutputIndex(String indexType, double cumReturn, double dailyAvg, double dailySharp, double mdd, double anotherItem) {
+        this.indexType = indexType;
+        this.cumReturn = cumReturn;
+        this.dailyAvg = dailyAvg;
+        this.dailySharp = dailySharp;
+        this.mdd = mdd;
+        this.anotherItem = anotherItem;
     }
+
+    public MomentumOutputIndex(String indexType, double cumReturn, double dailyAvg, double dailySharp, double mdd, LocalDateTime uploadTime) {
+        this.indexType = indexType;
+        this.cumReturn = cumReturn;
+        this.dailyAvg = dailyAvg;
+        this.dailySharp = dailySharp;
+        this.mdd = mdd;
+        this.uploadTime = uploadTime;
+    }
+}

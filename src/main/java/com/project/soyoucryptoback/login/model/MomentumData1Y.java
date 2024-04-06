@@ -18,7 +18,8 @@ public class MomentumData1Y {
 
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+//@GeneratedValue(strategy = GenerationType.AUTO)
+@Id
     @Column(name = "id")
     private int id;
 

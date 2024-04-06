@@ -4,14 +4,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.project.soyoucryptoback.login.model.*;
 import com.project.soyoucryptoback.login.repository.*;
-import com.project.soyoucryptoback.login.repository.ExcelDataRepository;
 import com.project.soyoucryptoback.login.service.DataService;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +22,6 @@ import java.util.List;
 @RestController
 public class ExcelController {
 
-    private final ExcelDataRepository excelDataRepository;
-    private final ExcelDataRepository2 excelDataRepository2;
     private final DataService dataService;
     private final MomentumDataAllRepository momentumDataAllRepository;
     private final MomentumData1YRepository momentumData1YRepository;
@@ -43,17 +34,14 @@ public class ExcelController {
 
     @Autowired
     public ExcelController(
-            ExcelDataRepository excelDataRepository,
-            ExcelDataRepository2 excelDataRepository2, DataService dataService,
+            DataService dataService,
             MomentumDataAllRepository momentumDataAllRepository, MomentumData1YRepository momentumData1YRepository,
             MomentumData3MRepository momentumData3MRepository, MomentumData6MRepository momentumData6MRepository,
             StableDataAllRepository stableDataAllRepository, StableData1YRepository stableData1YRepository,
             StableData6MRepository stableData6MRepository, StableData3MRepository stableData3MRepository
 
     ) {
-        this.excelDataRepository = excelDataRepository;
         this.dataService = dataService;
-        this.excelDataRepository2 = excelDataRepository2;
         this.momentumDataAllRepository = momentumDataAllRepository;
         this.momentumData1YRepository = momentumData1YRepository;
         this.momentumData6MRepository = momentumData6MRepository;
@@ -75,59 +63,6 @@ public class ExcelController {
     }
 
 
-    // 엑셀파일 업로드
-    @PostMapping("/excel/read2")
-    public String readExcel2(@RequestParam("file") MultipartFile file, Model model)
-            throws IOException { // 2
-        System.out.println("api 호출 성공");
-
-        List<ExcelData2> dataList = new ArrayList<>();
-
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename()); // 3
-
-        if (!extension.equals("xlsx") && !extension.equals("xls")) {
-            throw new IOException("엑셀파일만 업로드 해주세요.");
-        }
-
-        Workbook workbook = null;
-
-        if (extension.equals("xlsx")) {
-            workbook = new XSSFWorkbook(file.getInputStream());
-        } else if (extension.equals("xls")) {
-            workbook = new HSSFWorkbook(file.getInputStream());
-        }
-
-        Sheet worksheet = workbook.getSheetAt(0);
-
-        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) { // 4
-
-            Row row = worksheet.getRow(i);
-            if(null == row) {
-                continue;
-            }
-            ExcelData2 data = new ExcelData2();
-
-
-            if(null != row.getCell(0)){
-                data.setDate(row.getCell(0).getStringCellValue());}
-            if(null != row.getCell(1)){
-                data.setTerminal_price(row.getCell(1).getStringCellValue());}
-            if(null != row.getCell(2)){
-                data.setOpening_price(row.getCell(2).getStringCellValue());}
-            if(null != row.getCell(3)){
-                data.setTransactions(row.getCell(3).getStringCellValue());}
-            if(null != row.getCell(4)){
-                data.setChanges(row.getCell(4).getStringCellValue());}
-
-            dataList.add(data);
-            excelDataRepository2.save(data);
-        }
-
-        model.addAttribute("datas", dataList); // 5
-
-        return "excelList";
-
-    }
 
     // 그래프 밑에 출력되는 인덱스 호출 (공통)
     @GetMapping("/momentum/index")
